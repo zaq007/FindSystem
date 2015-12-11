@@ -9,6 +9,8 @@
 
 require_once "Inc/DB.php";
 require_once "Repository/TreeRepository.php";
+require_once "Model/TaskModel.php";
+
 
 function getTask($id)
 {

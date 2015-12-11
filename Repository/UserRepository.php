@@ -8,6 +8,7 @@
  */
 
 require_once "Inc/DB.php";
+require_once "Model/UserModel.php";
 
 function getUserBySession($session)
 {

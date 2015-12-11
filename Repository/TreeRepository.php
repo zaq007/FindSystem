@@ -8,6 +8,7 @@
  */
 
 require_once "Inc/DB.php";
+require_once "Model/TreeModel.php";
 
 function getTree($id)
 {
