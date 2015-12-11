@@ -65,7 +65,7 @@ if($CurrentUser != null)
 				case 10:
 				break;
 			}
-			setSolved($CurrentUser->Id, $Position);
+			setSolved($CurrentUser->Id, $Tree->Position);
 			die("OK");
 		}
 	}

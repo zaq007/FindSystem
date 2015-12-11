@@ -101,7 +101,7 @@ function getSuitable($TeamId)
                                 where Id not in (
                                 select TaskID
                                 from Trees
-                                where TeamID = 1 AND isSolved = 1
+                                where TeamID = :teamId AND isSolved = 1
                                 Union
                                 select t.TaskID as \"TaskID\"
                                 from Users u

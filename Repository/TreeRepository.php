@@ -74,7 +74,7 @@ function updateTree($TeamId, $TaskId, $Position)
     global $db;
     try
     {
-        $query = $db->prepare("UPDATE `Trees` SET `TaskID` = :taskId WHERE `TeamID` = :teamId AND `Position` = :position");
+        $query = $db->prepare("UPDATE `Trees` SET `TaskID` = :taskId WHERE `TeamID` = :teamId AND `Position` = :position AND isSolved = 0");
         $query->bindParam(':teamId', $TeamId);
         $query->bindParam(':taskId', $TaskId);
         $query->bindParam(':position', $Position);

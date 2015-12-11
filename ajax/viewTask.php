@@ -21,7 +21,7 @@ if($CurrentUser != null)
     if($CurrentUser->CurrentTreeID == null)
     {
         chooseTask($CurrentUser, $Position);
-        $CurrentUser = getUser($_COOKIE['auth']);
+        $CurrentUser = getUserBySession($_COOKIE['auth']);
     }
 
 
