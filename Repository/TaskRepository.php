@@ -17,7 +17,7 @@ function getTask($id)
     global $db;
     try
     {
-        $query = $db->prepare("SELECT * FROM `Tasks` WHERE 'id' = :id");
+        $query = $db->prepare("SELECT * FROM `Tasks` WHERE `Id` = :id");
         $query->bindParam(':id', $id);
         $query->execute();
         if($query->rowCount() == 0)
@@ -37,7 +37,7 @@ function getSolved($TeamId)
     try
     {
         $query = $db->prepare("SELECT TaskID
-                                from Trees
+                                from `Trees`
                                 where TeamID = :teamId AND isSolved = true");
         $query->bindParam(':teamId', $TeamId);
         $query->execute();
@@ -57,8 +57,8 @@ function isSolved($TeamId, $Position)
     try
     {
         $query = $db->prepare("SELECT * 
-                               FROM Trees
-                               where TeamID = :teamId AND Position=:position AND isSolved = true");
+                               FROM `Trees`
+                               WHERE TeamID = :teamId AND Position = :position AND isSolved = true");
         $query->bindParam(':teamId', $TeamId);
 		$query->bindParam(':position', $Position);
         $query->execute();
@@ -71,6 +71,7 @@ function isSolved($TeamId, $Position)
     {
         echo $e->getMessage();
     }
+    return false;
 }
 
 function getSuitable($TeamId)
@@ -79,16 +80,16 @@ function getSuitable($TeamId)
     try
     {
         $query = $db->prepare("select *
-                                from `tasks`
-                                where id not in (
+                                from `Tasks`
+                                where Id not in (
                                 select TaskID
                                 from Trees
-                                where TeamID = :teamId AND isSolved = true
-                                minus
-                                select t.Id as \"TaskID\"
+                                where TeamID = 1 AND isSolved = 1
+                                Union
+                                select t.TaskID as \"TaskID\"
                                 from Users u
                                 join Trees t on u.CurrentTreeID = t.Id)
-                                and id <> 1 and id <> 10");
+                                and Id <> 1 and Id <> 10");
         $query->bindParam(':teamId', $TeamId);
         $query->execute();
         if($query->rowCount() == 0)
@@ -100,9 +101,6 @@ function getSuitable($TeamId)
         echo $e->getMessage();
     }
     return null;
-
-
-
 }
 
 function chooseTask($User, $Position)

@@ -15,7 +15,7 @@ function getTree($id)
     global $db;
     try
     {
-        $query = $db->prepare("SELECT * FROM `Trees` WHERE 'id' = :id");
+        $query = $db->prepare("SELECT * FROM `Trees` WHERE `Id` = :id");
         $query->bindParam(':id', $id);
         $query->execute();
         if($query->rowCount() == 0)
@@ -56,7 +56,7 @@ function insertTree($TeamId, $TaskId, $Position)
     global $db;
     try
     {
-        $query = $db->prepare('INSERT INTO `Trees` ("TeamID", "TaskID", "Position") VALUES (:teamId, :taskId, :position)');
+        $query = $db->prepare('INSERT INTO `Trees` (`TeamID`, `TaskID`, `Position`) VALUES (:teamId, :taskId, :position)');
         $query->bindParam(':teamId', $TeamId);
         $query->bindParam(':taskId', $TaskId);
         $query->bindParam(':position', $Position);
@@ -74,7 +74,7 @@ function updateTree($TeamId, $TaskId, $Position)
     global $db;
     try
     {
-        $query = $db->prepare("UPDATE `Trees` SET 'TaskId' = :taskId WHERE 'TeamId' = :teamId AND 'Position' = :position");
+        $query = $db->prepare("UPDATE `Trees` SET `TaskID` = :taskId WHERE `TeamID` = :teamId AND `Position` = :position");
         $query->bindParam(':teamId', $TeamId);
         $query->bindParam(':taskId', $TaskId);
         $query->bindParam(':position', $Position);
@@ -94,7 +94,7 @@ function getTeamTree($TeamId)
     {
         $query = $db->prepare("SELECT *
 								FROM `Trees`
-								WHERE TeamId = :teamid");
+								WHERE `TeamID` = :teamId");
         $query->bindParam(':teamId', $TeamId);
         $query->execute();
         return $query->fetchAll();

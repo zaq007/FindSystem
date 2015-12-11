@@ -15,7 +15,7 @@ function getUserBySession($session)
     global $db;
     try
     {
-        $query = $db->prepare("SELECT * FROM `Users` WHERE session=:session");
+        $query = $db->prepare("SELECT * FROM `Users` WHERE `Session` = :session");
         $query->bindParam(":session", $session);
         $query->execute();
         if($query->rowCount() == 0)
@@ -33,7 +33,7 @@ function getUserByPassword($password)
 	global $db;
     try
     {
-        $query = $db->prepare("SELECT * FROM `Users` WHERE Password=:password");
+        $query = $db->prepare("SELECT * FROM `Users` WHERE `Password` = :password");
         $query->bindParam(":password", $password);
         $query->execute();
         if($query->rowCount() == 0)
@@ -51,7 +51,7 @@ function updateSession($UserId, $Session)
 	global $db;
     try
     {
-        $query = $db->prepare("UPDATE `Users` SET Session=:session WHERE Id=:userid");
+        $query = $db->prepare("UPDATE `Users` SET `Session` = :session WHERE `Id` = :userid");
         $query->bindParam(":session", $Session);
         $query->bindParam(":userid", $UserId);
 		return $query->execute();
