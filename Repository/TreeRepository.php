@@ -1,0 +1,65 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: User
+ * Date: 10.12.15
+ * Time: 22:29
+ * To change this template use File | Settings | File Templates.
+ */
+
+require_once "\\Inc\\DB.php";
+
+function getTree($id)
+{
+    global $db;
+    try
+    {
+        $query = $db->prepare("SELECT * FROM `Trees` WHERE 'id' = :id");
+        $query->bindParam(':id', $id);
+        $query->execute();
+        if($query->rowCount() == 0)
+            return null;
+        return $query->fetchAll(PDO::FETCH_CLASS, 'TreeModel')[0];
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+    return null;
+}
+
+function insertTree($TeamId, $TaskId, $Position)
+{
+    global $db;
+    try
+    {
+        $query = $db->prepare('INSERT INTO `Trees` ("TeamID", "TaskID", "Position") VALUES (:teamId, :taskId, :position)');
+        $query->bindParam(':teamId', $TeamId);
+        $query->bindParam(':taskId', $TaskId);
+        $query->bindParam(':position', $Position);
+        return $query->execute();
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+    return false;
+}
+
+function updateTree($TeamId, $TaskId, $Position)
+{
+    global $db;
+    try
+    {
+        $query = $db->prepare("UPDATE `Trees` SET 'TaskId' = :taskId WHERE 'TeamId' = :teamId AND 'Position' = :position");
+        $query->bindParam(':teamId', $TeamId);
+        $query->bindParam(':taskId', $TaskId);
+        $query->bindParam(':position', $Position);
+        return $query->execute();
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+    return false;
+}
