@@ -85,3 +85,22 @@ function updateTree($TeamId, $TaskId, $Position)
     }
     return false;
 }
+
+function getTeamTree($TeamId)
+{
+	global $db;
+    try
+    {
+        $query = $db->prepare("SELECT *
+								FROM `Trees`
+								WHERE TeamId = :teamid");
+        $query->bindParam(':teamId', $TeamId);
+        $query->execute();
+        return $query->fetchAll();
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+    return Array();
+}
