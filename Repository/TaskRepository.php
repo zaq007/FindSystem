@@ -10,7 +10,7 @@
 require_once "\\Inc\\DB.php";
 require_once "\\Repository\\TreeRepository.php";
 
-function getTree($id)
+function getTask($id)
 {
     global $db;
     try
