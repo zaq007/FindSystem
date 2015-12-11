@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once '\\Core\\Auth.php';
+require_once 'Core/Auth.php';
 
 if($CurrentUser == null)
 {

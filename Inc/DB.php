@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once '\\Inc\\config.php';
+require_once 'Inc/config.php';
 
 $db = null;
 try

@@ -7,8 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once '\\Inc\\DB.php';
-require_once '\\Repository\\UserRepository.php';
+require_once 'Inc/DB.php';
+require_once 'Repository/UserRepository.php';
 
 $CurrentUser = null;
 if(isset($_COOKIE['auth']))

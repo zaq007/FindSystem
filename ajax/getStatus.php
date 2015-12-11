@@ -9,8 +9,8 @@
 
 set_include_path('..');
 
-require_once '\\Core\\Auth.php';
-require_once '\\Repository\\TreeRepository.php';
+require_once 'Core/Auth.php';
+require_once 'Repository/TreeRepository.php';
 
 
 if($CurrentUser != null)

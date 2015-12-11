@@ -7,8 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once '\\Core\\Auth.php';
-require_once '\\Repository\\UserRepository.php';
+require_once 'Core/Auth.php';
+require_once 'Repository/UserRepository.php';
 
 
 $Password = $_POST['password'];
