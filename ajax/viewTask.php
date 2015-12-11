@@ -30,12 +30,8 @@ if($CurrentUser != null)
     {
         $Task = getTask($Tree->TaskID);
         echo json_encode(Array( "text" => $Task->Text));
-    } else
-    {
-        die("Error");
-    }
+		die();
+    } 
 }
-else
-{
-    die("Error!");
-}
+
+die("Error!");

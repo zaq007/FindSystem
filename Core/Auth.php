@@ -13,5 +13,5 @@ require_once '\\Repository\\UserRepository.php';
 $CurrentUser = null;
 if(isset($_COOKIE['auth']))
 {
-    $CurrentUser = getUser($_COOKIE['auth']);
+    $CurrentUser = getUserBySession($_COOKIE['auth']);
 }

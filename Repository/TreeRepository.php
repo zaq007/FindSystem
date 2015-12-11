@@ -28,6 +28,28 @@ function getTree($id)
     return null;
 }
 
+function getCurrentTree($UserId)
+{
+	global $db;
+    try
+    {
+        $query = $db->prepare("SELECT tr.Id, tr.isSolved, tr.TaskID, tr.Position 
+							   FROM `Users` u 
+							   JOIN `Trees` tr ON (u.CurrentTreeID = tr.Id)
+							   WHERE u.Id = :userid");
+        $query->bindParam(':userid', $UserId);
+        $query->execute();
+        if($query->rowCount() == 0)
+            return null;
+        return $query->fetchAll(PDO::FETCH_CLASS, 'TreeModel')[0];
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+    return null;	
+}
+
 function insertTree($TeamId, $TaskId, $Position)
 {
     global $db;

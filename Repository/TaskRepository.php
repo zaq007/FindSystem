@@ -29,6 +29,48 @@ function getTree($id)
     return null;
 }
 
+function getSolved($TeamId)
+{
+	global $db;
+    try
+    {
+        $query = $db->prepare("SELECT TaskID
+                                from Trees
+                                where TeamID = :teamId AND isSolved = true");
+        $query->bindParam(':teamId', $TeamId);
+        $query->execute();
+        return $query->fetchAll();
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+    return Array();
+	
+}
+
+function isSolved($TeamId, $Position)
+{
+	global $db;
+    try
+    {
+        $query = $db->prepare("SELECT * 
+                               FROM Trees
+                               where TeamID = :teamId AND Position=:position AND isSolved = true");
+        $query->bindParam(':teamId', $TeamId);
+		$query->bindParam(':position', $Position);
+        $query->execute();
+        $query->fetchAll();
+		if($query->rowCount() == 0)
+            return false;
+		return true;
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+}
+
 function getSuitable($TeamId)
 {
     global $db;
@@ -82,4 +124,27 @@ function chooseTask($User, $Position)
 
     flock($fp, LOCK_UN);
     fclose($fp);
+}
+
+function getCurrentTask($UserId)
+{
+	global $db;
+    try
+    {
+        $query = $db->prepare("SELECT t.Id AS 'Id', t.Text AS 'Text', t.Answer AS 'Answer' 
+							   FROM `Users` u 
+							   JOIN `Trees` tr ON (u.CurrentTreeID = tr.Id)
+							   JOIN `Tasks` t ON (tr.TaskID = t.Id)
+							   WHERE u.Id = :userid");
+        $query->bindParam(':userid', $UserId);
+        $query->execute();
+        if($query->rowCount() == 0)
+            return null;
+        return $query->fetchAll(PDO::FETCH_CLASS, 'TaskModel')[0];
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+    return null;	
 }
