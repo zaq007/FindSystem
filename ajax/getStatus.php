@@ -15,7 +15,7 @@ require_once 'Repository/TreeRepository.php';
 
 if($CurrentUser != null)
 {
-    echo json_encode(getTeamTree($CurrentUser->Id));
+    echo json_encode(Array("current" => $CurrentUser->CurrentTreeID, "tree" => getTeamTree($CurrentUser->Id)));
 	die();
 }
 

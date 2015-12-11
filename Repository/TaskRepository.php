@@ -38,7 +38,7 @@ function getSolved($TeamId)
     {
         $query = $db->prepare("SELECT TaskID
                                 from `Trees`
-                                where TeamID = :teamId AND isSolved = true");
+                                where TeamID = :teamId AND isSolved = 1");
         $query->bindParam(':teamId', $TeamId);
         $query->execute();
         return $query->fetchAll();
@@ -48,7 +48,6 @@ function getSolved($TeamId)
         echo $e->getMessage();
     }
     return Array();
-	
 }
 
 function isSolved($TeamId, $Position)
@@ -58,7 +57,7 @@ function isSolved($TeamId, $Position)
     {
         $query = $db->prepare("SELECT * 
                                FROM `Trees`
-                               WHERE TeamID = :teamId AND Position = :position AND isSolved = true");
+                               WHERE TeamID = :teamId AND Position = :position AND isSolved = 1");
         $query->bindParam(':teamId', $TeamId);
 		$query->bindParam(':position', $Position);
         $query->execute();
@@ -66,6 +65,24 @@ function isSolved($TeamId, $Position)
 		if($query->rowCount() == 0)
             return false;
 		return true;
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+    return false;
+}
+
+function setSolved($TeamId, $Position)
+{
+    global $db;
+    try
+    {
+        $query = $db->prepare("UPDATE `Trees`
+                               SET isSolved = 1 WHERE TeamID = :teamId AND Position = :position");
+        $query->bindParam(':teamId', $TeamId);
+        $query->bindParam(':position', $Position);
+        return $query->execute();
     }
     catch(PDOException $e)
     {
