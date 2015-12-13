@@ -20,8 +20,8 @@ if($CurrentUser == null)
 	{
 		$Session = sessionGenerator();
 		updateSession($User->Id, $Session);
-		setcookie("auth", $Session);
+		setcookie("auth", $Session, time() + 60*60*24, "/");
 	}
 } 
 
-header("Location: /", 301);
+header("Location: /");

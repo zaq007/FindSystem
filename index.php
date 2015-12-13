@@ -11,11 +11,15 @@ require_once 'Core/Auth.php';
 
 if($CurrentUser == null)
 {
-
-
+echo <<< login
+<form action="/login.php" method="POST">
+    <input name="password" />
+    <input type="submit"/>
+</form>
+login;
 } else
 {
-
+    var_dump($CurrentUser);
 
 
 }
