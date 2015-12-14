@@ -12,8 +12,13 @@ require_once 'Core/Auth.php';
 $html = "";
 if($CurrentUser == null)
 {
-    $html = file_get_contents(__DIR__ . "/Layout/login.html");
-}
+echo <<< login
+<form action="/login.php" method="POST">
+    <input name="password" />
+    <input type="submit"/>
+</form>
+login;
+ } else
 {
     $html = file_get_contents(__DIR__ . "/Layout/index.html");
 }
