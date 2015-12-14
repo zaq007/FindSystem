@@ -12,7 +12,6 @@ set_include_path('..');
 require_once 'Core/Auth.php';
 require_once 'Repository/TreeRepository.php';
 
-
 if($CurrentUser != null)
 {
     echo json_encode(Array("current" => $CurrentUser->CurrentTreeID, "tree" => getTeamTree($CurrentUser->Id)));
