@@ -122,10 +122,10 @@ function getSuitable($TeamId)
 
 function chooseTask($User, $Position)
 {
-    $fp = fopen('/tmp/php-commit.lock', 'r+');
+    /*$fp = fopen('/tmp/php-commit.lock', 'r+');
     while (!flock($fp, LOCK_EX | LOCK_NB)) {
         usleep(100);
-    }
+    }*/
 
     $TaskID;
 
@@ -139,8 +139,8 @@ function chooseTask($User, $Position)
 
     updateTree($User->Id, $TaskID, $Position);
 
-    flock($fp, LOCK_UN);
-    fclose($fp);
+    //flock($fp, LOCK_UN);
+    //fclose($fp);
 }
 
 function getCurrentTask($UserId)

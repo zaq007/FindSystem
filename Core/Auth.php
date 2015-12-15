@@ -15,7 +15,3 @@ if(isset($_COOKIE['auth']))
 {
     $CurrentUser = getUserBySession($_COOKIE['auth']);
 }
-else
-{
-    setcookie("auth", "dc74ccf52852d786d998b487a19a4891");
-}
