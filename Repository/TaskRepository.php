@@ -110,7 +110,17 @@ function getSuitable($TeamId)
         $query->bindParam(':teamId', $TeamId);
         $query->execute();
         if($query->rowCount() == 0)
-            return null;
+        {
+            $query = $db->prepare("select *
+                                from `Tasks`
+                                where Id not in (
+                                select TaskID
+                                from Trees
+                                where TeamID = :teamId AND isSolved = 1)
+                                and Id <> 1 and Id <> 10");
+            $query->bindParam(':teamId', $TeamId);
+            $query->execute();
+        }
         return $query->fetchAll(PDO::FETCH_CLASS, 'TaskModel')[0];
     }
     catch(PDOException $e)
@@ -122,10 +132,10 @@ function getSuitable($TeamId)
 
 function chooseTask($User, $Position)
 {
-    /*$fp = fopen('/tmp/php-commit.lock', 'r+');
+    $fp = fopen('/tmp/php-commit.lock', 'r+');
     while (!flock($fp, LOCK_EX | LOCK_NB)) {
         usleep(100);
-    }*/
+    }
 
     $TaskID;
 
@@ -139,8 +149,8 @@ function chooseTask($User, $Position)
 
     updateTree($User->Id, $TaskID, $Position);
 
-    //flock($fp, LOCK_UN);
-    //fclose($fp);
+    flock($fp, LOCK_UN);
+    fclose($fp);
 }
 
 function getCurrentTask($UserId)
