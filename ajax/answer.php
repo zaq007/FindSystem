@@ -14,7 +14,7 @@ require_once 'Repository/TreeRepository.php';
 require_once 'Repository/TaskRepository.php';
 
 
-$Answer =  trim(strtolower($_POST['answer']));
+$Answer =  trim(mb_strtolower($_POST['answer'], mb_internal_encoding()));
 
 if($CurrentUser != null)
 {
